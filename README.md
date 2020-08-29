@@ -10,6 +10,8 @@ Just type the values of the cells from left to right, top to bottom behind each 
 Example:
 `.26...19....8.6.....1.4.3..74.....81..8...7..16.....53..7.3.4.....2.7....32...67.`
 
+Currently it only works with 9x9 Sudokus.
+
 ![alt text](./example-sudoku.PNG "Example Sudoku")
 
 ## How does it work?

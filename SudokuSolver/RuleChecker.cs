@@ -20,10 +20,10 @@ namespace SudokuSolver
             return true;
         }
 
-        private bool OnlyPossibility(Cell cell, int value)
+        private bool OnlyPossibility(Cell cell, int value) //TODO: Move to BruteForceRecursion Solver
         {
             var otherPossibleCells = Sudoku.Cells.Where(x => x.Value == -1).Where(x =>
-                x.BlockIndex == cell.BlockIndex).Where(x => x.CellIndex != cell.CellIndex);
+                x.BlockIndex == cell.BlockIndex || x.RowIndex == cell.RowIndex ||x.ColIndex == cell.ColIndex).Where(x => x.CellIndex != cell.CellIndex);
 
             foreach (var otherPossibleCell in otherPossibleCells)
                 if (AllowedToInsert(otherPossibleCell, value))

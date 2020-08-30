@@ -31,7 +31,7 @@ namespace SudokuSolver
 
             Console.WriteLine(SudokuPrinter.Print(sudoku));
 
-            Solver.Solve(sudoku);
+            new BruteForceRecursionSolver().Solve(sudoku);
 
             if (!sudoku.IsSolved)
             {

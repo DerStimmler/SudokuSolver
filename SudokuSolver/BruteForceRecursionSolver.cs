@@ -2,9 +2,9 @@
 
 namespace SudokuSolver
 {
-    internal class Solver
+    internal class BruteForceRecursionSolver : ISolve
     {
-        public static void Solve(Sudoku sudoku)
+        public void Solve(Sudoku sudoku)
         {
             bool changed;
 
@@ -19,6 +19,8 @@ namespace SudokuSolver
                     if (inserted) changed = true;
                 }
             } while (!sudoku.IsSolved && changed);
+
+            //TODO: https://stackoverflow.com/questions/29545388/sudoku-backtracking-using-c-sharp
         }
     }
 }

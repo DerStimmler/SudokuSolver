@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
-
-namespace SudokuSolver
+﻿namespace SudokuSolver
 {
     internal interface ISolve
     {

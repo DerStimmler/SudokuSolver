@@ -21,7 +21,7 @@ namespace SudokuSolver
                 if (i % 3 == 0) sb.Append("|");
 
                 var value = sudoku.Cells[i].Value;
-                sb.Append(" " + (value == -1 ? " " : value.ToString()) + " ");
+                sb.Append(" " + (value == 0 ? " " : value.ToString()) + " ");
             }
 
             sb.AppendLine("|" + Environment.NewLine + "⌞-----------------------------⌟");

@@ -15,19 +15,12 @@ namespace SudokuSolver
         {
             var cell = Sudoku.Cells.Where(x => x.CellIndex == cellIndex).SingleOrDefault();
 
-            if (!(AllowedToInsert(cell, value) && OnlyPossibility(cell, value))) return false;
-
-            return true;
+            return CheckInsertion(cell, value);
         }
 
-        private bool OnlyPossibility(Cell cell, int value) //TODO: Move to BruteForceRecursion Solver
+        public bool CheckInsertion(Cell cell, int value)
         {
-            var otherPossibleCells = Sudoku.Cells.Where(x => x.Value == -1).Where(x =>
-                x.BlockIndex == cell.BlockIndex || x.RowIndex == cell.RowIndex ||x.ColIndex == cell.ColIndex).Where(x => x.CellIndex != cell.CellIndex);
-
-            foreach (var otherPossibleCell in otherPossibleCells)
-                if (AllowedToInsert(otherPossibleCell, value))
-                    return false;
+            if (!AllowedToInsert(cell, value)) return false;
 
             return true;
         }
@@ -41,18 +34,20 @@ namespace SudokuSolver
 
         private bool AllowedInRow(int value, Cell cell)
         {
-            var y = !Sudoku.Cells.Where(x => x.RowIndex == cell.RowIndex).Where(x => x.Value == value).Any();
-            return y;
+            return !Sudoku.Cells.Where(x => x.RowIndex == cell.RowIndex).Where(x => x.Value == value)
+                .Where(x => x.CellIndex != cell.CellIndex).Any();
         }
 
         private bool AllowedInCol(int value, Cell cell)
         {
-            return !Sudoku.Cells.Where(x => x.ColIndex == cell.ColIndex).Where(x => x.Value == value).Any();
+            return !Sudoku.Cells.Where(x => x.ColIndex == cell.ColIndex).Where(x => x.Value == value)
+                .Where(x => x.CellIndex != cell.CellIndex).Any();
         }
 
         private bool AllowedInBlock(int value, Cell cell)
         {
-            return !Sudoku.Cells.Where(x => x.BlockIndex == cell.BlockIndex).Where(x => x.Value == value).Any();
+            return !Sudoku.Cells.Where(x => x.BlockIndex == cell.BlockIndex).Where(x => x.Value == value)
+                .Where(x => x.CellIndex != cell.CellIndex).Any();
         }
     }
 }

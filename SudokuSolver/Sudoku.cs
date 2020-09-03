@@ -15,9 +15,9 @@ namespace SudokuSolver
 
             for (var i = 0; i < input.Length; i++)
             {
-                var value = -1;
+                var value = 0;
 
-                if (input[i] != '.') value = Convert.ToInt32(input[i].ToString());
+                if (input[i] != '0') value = Convert.ToInt32(input[i].ToString());
 
                 Cells.Add(new Cell(i, value));
             }
@@ -32,9 +32,15 @@ namespace SudokuSolver
             return true;
         }
 
+        public void ClearCell(int cellIndex)
+        {
+            var listIndex = Cells.FindIndex(x => x.CellIndex == cellIndex);
+            Cells[listIndex].Value = 0;
+        }
+
         private bool CheckIfSolved()
         {
-            if (!Cells.Any(x => x.Value == -1))
+            if (!Cells.Any(x => x.Value == 0))
                 return true;
 
             return false;

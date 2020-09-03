@@ -8,6 +8,10 @@
         public int BlockIndex { get; set; }
         public int Value { get; set; }
 
+        public Cell()
+        {
+        }
+
         public Cell(int cellIndex, int value)
         {
             CellIndex = cellIndex;

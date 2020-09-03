@@ -1,6 +1,6 @@
 # SudokuSolver
 
-Small .NET Core Console Application to solve a Sudoku with the use of Brute-Forcing.
+Small .NET Core Console Application to solve a Sudoku with different solving algorithms.
 
 ## How to use?
 

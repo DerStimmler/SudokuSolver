@@ -24,5 +24,11 @@ Currently it only works with 9x9 Sudokus.
 
 ## How does it work?
 
-The Program iterates over every empty cell and tries to insert the values from 1 to 9. The insertion only works if the rules of Sudoku are not broken.
+### 1. Backtracking
+
+The Program takes all empty cells. Then it tries to insert the values 1-9 into those cells. The insertion only works if the rules of Sudoku are not violated. When the insertion works it goes on to the next empty cell and does the same thing. If the insertion of all 9 numbers didn't work it goes to the previous cell and continues trying to inserting numbers. If the insertion of all 9 numbers failed again it goes to the next-to-last and so on. The application stops when the Sudoku is solved or all possibilities were tried without success.
+
+### 2. BruteForce & Recursion
+
+The Program iterates over every empty cell and tries to insert the values from 1 to 9. The insertion only works if the rules of Sudoku are not violated and the value could not be pasted in another cell in the same row, column or block.
 When the Sudoku is solved or no new insertions were made in the last iteration the application stops.

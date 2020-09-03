@@ -18,6 +18,8 @@ namespace SudokuSolver
 
             while (!sudoku.IsSolved)
             {
+                if (currentCell == -1) return;
+
                 var cell = cellsToSolve[currentCell];
 
                 if (newTry)

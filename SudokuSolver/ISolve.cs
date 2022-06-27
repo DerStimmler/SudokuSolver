@@ -1,7 +1,6 @@
-﻿namespace SudokuSolver
+﻿namespace SudokuSolver;
+
+internal interface ISolve
 {
-    internal interface ISolve
-    {
-        void Solve(Sudoku sudoku);
-    }
+  void Solve(Sudoku sudoku);
 }

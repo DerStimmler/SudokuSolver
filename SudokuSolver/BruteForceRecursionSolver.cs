@@ -1,40 +1,38 @@
 ﻿using System.Linq;
 
-namespace SudokuSolver
+namespace SudokuSolver;
+
+internal class BruteForceRecursionSolver : ISolve
 {
-    internal class BruteForceRecursionSolver : ISolve
+  public void Solve(Sudoku sudoku)
+  {
+    bool changed;
+
+    do
     {
-        public void Solve(Sudoku sudoku)
+      changed = false;
+
+      foreach (var cell in sudoku.Cells.Where(x => x.Value == 0))
+        foreach (var value in Enumerable.Range(1, 9))
         {
-            bool changed;
-
-            do
-            {
-                changed = false;
-
-                foreach (var cell in sudoku.Cells.Where(x => x.Value == 0))
-                foreach (var value in Enumerable.Range(1, 9))
-                {
-                    if (!OnlyPossibility(sudoku, cell, value)) continue;
-                    var inserted = sudoku.InsertValue(value, cell.CellIndex);
-                    if (inserted) changed = true;
-                }
-            } while (!sudoku.IsSolved && changed);
-
-            //TODO: Continue with https://stackoverflow.com/questions/29545388/sudoku-backtracking-using-c-sharp
+          if (!OnlyPossibility(sudoku, cell, value)) continue;
+          var inserted = sudoku.InsertValue(value, cell.CellIndex);
+          if (inserted) changed = true;
         }
+    } while (!sudoku.IsSolved && changed);
 
-        private bool OnlyPossibility(Sudoku sudoku, Cell cell, int value)
-        {
-            var otherPossibleCells = sudoku.Cells.Where(x => x.Value == 0).Where(x =>
-                    x.BlockIndex == cell.BlockIndex || x.RowIndex == cell.RowIndex || x.ColIndex == cell.ColIndex)
-                .Where(x => x.CellIndex != cell.CellIndex);
+    //TODO: Continue with https://stackoverflow.com/questions/29545388/sudoku-backtracking-using-c-sharp
+  }
 
-            foreach (var otherPossibleCell in otherPossibleCells)
-                if (new RuleChecker(sudoku).CheckInsertion(otherPossibleCell, value))
-                    return false;
+  private static bool OnlyPossibility(Sudoku sudoku, Cell cell, int value)
+  {
+    var otherPossibleCells = sudoku.Cells
+      .Where(c => c.Value == 0)
+      .Where(x => x.BlockIndex == cell.BlockIndex || x.RowIndex == cell.RowIndex || x.ColIndex == cell.ColIndex)
+      .Where(x => x.CellIndex != cell.CellIndex);
 
-            return true;
-        }
-    }
+    var ruleChecker = new RuleChecker(sudoku);
+
+    return otherPossibleCells.All(otherPossibleCell => !ruleChecker.CheckInsertion(otherPossibleCell, value));
+  }
 }

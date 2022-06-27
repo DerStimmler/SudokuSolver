@@ -1,17 +1,14 @@
-﻿namespace SudokuSolver
+﻿namespace SudokuSolver;
+
+internal static class SolverFactory
 {
-    internal class SolverFactory
+  public static ISolve CreateSolver(int solverType)
+  {
+    return solverType switch
     {
-        public static ISolve CreateSolver(int solverType)
-        {
-            switch (solverType)
-            {
-                case 1:
-                    return new BacktrackingSolver();
-                case 2:
-                    return new BruteForceRecursionSolver();
-                default: return new BacktrackingSolver();
-            }
-        }
-    }
+      1 => new BacktrackingSolver(),
+      2 => new BruteForceRecursionSolver(),
+      _ => new BacktrackingSolver()
+    };
+  }
 }
